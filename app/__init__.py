@@ -7,6 +7,7 @@ def create_app():
 
     app = Flask(__name__)
     app.config['GITHUB_SECRET'] = 'asupersecretpassphraseformywebhook'
+    app.config['REPO_PATH'] = '/root/github_hook_deployment/'
     app.register_blueprint(webhook)
 
     return(app)

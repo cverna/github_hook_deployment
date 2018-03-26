@@ -1,5 +1,6 @@
 import hmac
 from flask import request, Blueprint, jsonify, current_app
+from git import Repo
 
 
 webhook = Blueprint('webhook', __name__, url_prefix='')
@@ -16,6 +17,8 @@ def handle_github_hook():
 
     hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
     if hmac.compare_digest(hashhex, signature):
-        print(request.json)
+        repo = Repo(current_app.config.get('REPO_PATH'))
+        origin = repo.remotes.origin
+        return_code = origin.pull()
 
     return jsonify({}), 200

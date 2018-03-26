@@ -21,6 +21,7 @@ def handle_github_hook():
         origin = repo.remotes.origin
         origin.pull('--rebase')
 
-        print('Repository was updated')
+        commit = request.json['after'][0:6]
+        print('Repository updated with commit {}'.format(commit))
 
     return jsonify({}), 200

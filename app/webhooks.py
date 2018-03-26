@@ -16,6 +16,6 @@ def handle_github_hook():
 
     hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
     if hmac.compare_digest(hashhex, signature):
-        print('Hello World')
+        print(request.json)
 
     return jsonify({}), 200

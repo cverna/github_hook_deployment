@@ -19,6 +19,6 @@ def handle_github_hook():
     if hmac.compare_digest(hashhex, signature):
         repo = Repo(current_app.config.get('REPO_PATH'))
         origin = repo.remotes.origin
-        return_code = origin.pull()
+        origin.pull('--rebase')
 
     return jsonify({}), 200
